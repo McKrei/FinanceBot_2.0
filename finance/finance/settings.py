@@ -86,15 +86,16 @@ WSGI_APPLICATION = "finance.wsgi.application"
 # }
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': PgKeys.NAME,
-        'USER': PgKeys.USER,
-        'PASSWORD': PgKeys.PASSWORD,
-        'DB_HOST': PgKeys.DB_HOST,
-        'PORT': PgKeys.PORT,
+    'default':{
+        'ENGINE':'django.db.backends.postgresql_psycopg2',
+        'NAME':PgKeys.NAME,
+        'USER':PgKeys.USER,
+        'PASSWORD':PgKeys.PASSWORD,
+        'HOST':PgKeys.DB_HOST,
+        'PORT':PgKeys.PORT
     }
 }
+
 
 
 # Password validation
