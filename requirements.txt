@@ -1,0 +1,5 @@
+Django==4.1.2
+aiogram==2.23.1
+python-dotenv
+PrettyTable
+psycopg2==2.9.5
