@@ -225,7 +225,7 @@ def inline_choice_currency(data: tuple):
         buttons_list = [
             InlineKeyboardButton(
                 f'{money.currency.name}',
-                callback_data=f'wo_{subcat.id}_{summa}_{money.currency.id}__')
+                callback_data=f'wo_{subcat.id}_{summa}_{money.currency.id}_')
                 for money in monies
         ]
     else:

@@ -3,3 +3,4 @@ aiogram==2.23.1
 python-dotenv
 PrettyTable
 psycopg2==2.9.5
+multi_key_dict
