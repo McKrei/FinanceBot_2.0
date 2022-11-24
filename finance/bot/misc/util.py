@@ -27,7 +27,7 @@ def beautiful_numbers(x):
         num = num[:num.index('.')]
     elif re.search(r'\d+[.]\d0\b', num):
         num = num[:-1]
-    return num if num[-2:] != '00' else num[:-3]
+    return num
 
 
 def get_date_now() -> tuple:
