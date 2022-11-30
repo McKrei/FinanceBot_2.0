@@ -36,7 +36,6 @@ def get_list_inline_by_days(data: str, telegram_id: int):
     date = [int(el) for el in date_start_str.split('-')]
     date_start, date_end = misc.get_two_date_delta(type_date, *date)
     result_list = get_sum_operations_by_days(telegram_id, date_start, date_end)
-    print(result_list)
     inline = kb.get_inline_button_sum_operations_by_days(result_list, *date[:-1])
     return {
         'text' : f'Операции за {misc.month_dict[date[1]]} {date[0]}',
