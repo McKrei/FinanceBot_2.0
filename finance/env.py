@@ -15,3 +15,10 @@ class PgKeys:
         PASSWORD : Final = config.get('PASSWORD', 'define PASSWORD')
         DB_HOST  : Final = config.get('DB_HOST', 'define DB_HOST')
         PORT : Final = config.get('PORT', 'define PORT')
+
+class DjangoKey:
+    SECRET_KEY : Final = config.get('SECRET_KEY', 'define SECRET_KEY')
+
+
+class TinkoffKey:
+    TOKEN : Final = config.get('TOKEN_TINKOFF', 'define TOKEN_TINKOFF')
