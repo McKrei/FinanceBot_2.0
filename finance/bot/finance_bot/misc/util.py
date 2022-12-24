@@ -3,8 +3,8 @@ from decimal import Decimal
 import datetime as dt
 from typing import Tuple, List
 from asgiref.sync import sync_to_async
-from bot.models.currency import get_dict_currency_reduction
-from bot import misc
+from bot.finance_bot.models.currency import get_dict_currency_reduction
+from bot.finance_bot import misc
 
 
 def get_words(text: str) -> list:

@@ -2,7 +2,7 @@ from asgiref.sync import sync_to_async
 from typing import List, Tuple
 from mainapp.models import MoneySum
 from mainapp.models import User, Telegram
-from bot.misc.util import beautiful_numbers as bn
+from bot.finance_bot.misc.util import beautiful_numbers as bn
 from mainapp.models import Currency
 from decimal import Decimal
 

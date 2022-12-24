@@ -1,11 +1,10 @@
 from asgiref.sync import sync_to_async
 # from multi_key_dict import multi_key_dict
 from typing import List, Tuple
-from bot.models.operations import write_operation_callback
-from bot.models.operations import search_by_cur_and_reuctsub
+from bot.portfolio_bot.models.operations import write_operation_callback
+from bot.portfolio_bot.models.operations import search_by_cur_and_reuctsub
 from mainapp.models import Category, Subcategory, SubcategoryReduction
 from mainapp.models import User, Telegram
-
 
 
 def get_user_categories(telegram_id: int) -> List[Category]:
@@ -34,11 +33,12 @@ def get_list_cat_and_subcat(telegram_id: int,
     category- [категория, категория, ...]
     subcategory [(категория, [суб кат, субкат, ...]), (...)...]
     '''
-    create_list_cat = lambda cats: [cat.name for cat in cats]
-    create_list_catsub = lambda cat_and_sub: [
-            (cat.name, [sub.name for sub in sub_list])
-            for cat, sub_list in cat_and_sub
-            ]
+    def create_list_cat(cats): return [cat.name for cat in cats]
+
+    def create_list_catsub(cat_and_sub): return [
+        (cat.name, [sub.name for sub in sub_list])
+        for cat, sub_list in cat_and_sub
+    ]
 
     categories = get_user_categories(telegram_id)
     cat_income = categories.filter(income_or_expense=True)
@@ -48,10 +48,12 @@ def get_list_cat_and_subcat(telegram_id: int,
         expense = create_list_cat(cat_expense)
     else:
         income_cat_and_sub = get_user_categories_and_subcategories(cat_income)
-        expense_cat_and_sub = get_user_categories_and_subcategories(cat_expense)
+        expense_cat_and_sub = get_user_categories_and_subcategories(
+            cat_expense)
         income = create_list_catsub(income_cat_and_sub)
         expense = create_list_catsub(expense_cat_and_sub)
     return income, expense
+
 
 @sync_to_async
 def answer_for_user_category(telegram_id: int) -> str:
@@ -64,9 +66,9 @@ def answer_for_user_category(telegram_id: int) -> str:
     def transformation_data(data):
         return '\n'.join([
             cat.name + ':' + ''.join([f'\n    {sub.name.capitalize()}'
-            for sub in sub_list])
+                                      for sub in sub_list])
             for cat, sub_list in data
-            ])
+        ])
 
     user = Telegram.objects.get(id=telegram_id).user
     income = get_user_categories_and_subcategories(
@@ -89,13 +91,14 @@ def creating_dict_for_search_category(telegram_id: int) -> Tuple[dict]:
     result_dict = {}
     for cat, sub_list in data:
         for sub in sub_list:
-            result_dict.update({sub.name : (cat.id, sub.id)})
+            result_dict.update({sub.name: (cat.id, sub.id)})
     return result_dict
 
 
 def get_subcat_by_catid(cat_id):
     cat = Category.objects.get(id=int(cat_id))
-    subcats = Subcategory.objects.filter(category=cat).values_list('id', 'name')
+    subcats = Subcategory.objects.filter(
+        category=cat).values_list('id', 'name')
     return cat.name, subcats
 
 

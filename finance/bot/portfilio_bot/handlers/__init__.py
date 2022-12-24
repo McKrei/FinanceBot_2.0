@@ -1,0 +1,1 @@
+from .main import portfolio_register_all_handlers

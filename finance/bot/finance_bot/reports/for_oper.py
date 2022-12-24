@@ -3,12 +3,12 @@ from asgiref.sync import sync_to_async
 from typing import Tuple, List
 import datetime as dt
 
-from bot import misc
-from bot import reports
-from bot import keyboards as kb
-from bot.misc.util import beautiful_numbers as bn
+from bot.finance_bot import misc
+from bot.finance_bot import reports
+from bot.finance_bot import keyboards as kb
+from bot.finance_bot.misc.util import beautiful_numbers as bn
 
-from bot.models.operations import get_sum_operations_by_days
+from bot.finance_bot.models.operations import get_sum_operations_by_days
 
 
 

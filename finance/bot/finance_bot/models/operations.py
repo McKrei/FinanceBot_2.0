@@ -6,21 +6,21 @@ from datetime import datetime
 from decimal import Decimal
 
 
-from bot.misc.util import get_words, get_number
-from bot import keyboards as kb
-from bot.misc.util import beautiful_numbers as bn
-from bot.misc.util import create_detail_operation_sting
-from bot.misc.util import beautiful_account_operation
-from bot.models.currency import dict_currency_reduction_for_search
+from bot.finance_bot.misc.util import get_words, get_number
+from bot.finance_bot import keyboards as kb
+from bot.finance_bot.misc.util import beautiful_numbers as bn
+from bot.finance_bot.misc.util import create_detail_operation_sting
+from bot.finance_bot.misc.util import beautiful_account_operation
+from bot.finance_bot.models.currency import dict_currency_reduction_for_search
 from mainapp.models import Category, Subcategory, SubcategoryReduction
 from mainapp.models import User, Telegram
 from mainapp.models import Currency, CurrencyReduction
 from mainapp.models import MoneySum
 from mainapp.models import Conversion, Operation
 
-from bot.models.money import conversion_change_to_many
-from bot.models.money import update_count_money
-from bot.models.money import account_operation_change_to_many
+from bot.finance_bot.models.money import conversion_change_to_many
+from bot.finance_bot.models.money import update_count_money
+from bot.finance_bot.models.money import account_operation_change_to_many
 
 
 def conversion_save(user: User,

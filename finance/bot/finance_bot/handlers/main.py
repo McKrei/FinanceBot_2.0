@@ -1,8 +1,8 @@
 from aiogram import Dispatcher
 
-from bot.handlers.other import register_other_handlers
-from bot.handlers.user import register_user_handlers
-from bot.handlers.callback import register_callback_handlers
+from bot.finance_bot.handlers.other import register_other_handlers
+from bot.finance_bot.handlers.user import register_user_handlers
+from bot.finance_bot.handlers.callback import register_callback_handlers
 
 
 

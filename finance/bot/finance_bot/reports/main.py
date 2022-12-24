@@ -6,16 +6,16 @@ from asgiref.sync import sync_to_async
 from typing import Tuple, List
 import datetime as dt
 
-from bot import misc
-from bot import keyboards as kb
-from bot.misc.util import beautiful_numbers as bn
+from bot.finance_bot import misc
+from bot.finance_bot import keyboards as kb
+from bot.finance_bot.misc.util import beautiful_numbers as bn
 
-from bot.models.operations import get_date_first_operation
-from bot.models.operations import get_conversion_operation
-from bot.models.operations import get_account_operation
-from bot.models.operations import get_summa_operation
-from bot.models.operations import get_sum_for_cat
-from bot.models.category import get_list_cat_and_subcat
+from bot.finance_bot.models.operations import get_date_first_operation
+from bot.finance_bot.models.operations import get_conversion_operation
+from bot.finance_bot.models.operations import get_account_operation
+from bot.finance_bot.models.operations import get_summa_operation
+from bot.finance_bot.models.operations import get_sum_for_cat
+from bot.finance_bot.models.category import get_list_cat_and_subcat
 
 
 def beautiful_account_operation(operations: list) -> str:

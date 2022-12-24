@@ -3,13 +3,14 @@ from aiogram import Bot, Dispatcher
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
 from env import TgKeys
-from bot.handlers import register_all_handlers
+from bot.finance_bot.handlers import register_all_handlers
+# from bot.portfolio_bot.handlers import portfolio_register_all_handlers
 
 
 
 async def __on_start_up(dp: Dispatcher) -> None:
-
     register_all_handlers(dp)
+    # portfolio_register_all_handlers(dp)
 
 
 def runbot():
