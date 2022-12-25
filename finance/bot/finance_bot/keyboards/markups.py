@@ -9,12 +9,13 @@ only_menu = ReplyKeyboardMarkup(resize_keyboard=True).add(but_menu)
 but_report_menu = KeyboardButton('Отчеты')
 but_limit_menu = KeyboardButton('Лимиты')
 money_menu = KeyboardButton('Деньги')
+invest = KeyboardButton('Инвестиции')
 main_menu = ReplyKeyboardMarkup(resize_keyboard=True).add(
 	but_report_menu,
 	but_limit_menu,
-	money_menu
+	money_menu,
+	invest
 	)
-
 
 ''' ######### Отчет ######### '''
 report_menu = ReplyKeyboardMarkup(resize_keyboard=True)\

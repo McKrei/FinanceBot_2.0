@@ -1,15 +1,16 @@
 from env import TinkoffKey
 from django.db import models
-from mainapp.models import User
+from mainapp.models import User, Telegram
 from tinkoff.invest import CandleInterval, Client
 from tinkoff.invest.services import InstrumentsService, MarketDataService
 from tinkoff.invest.utils import now
 from datetime import timedelta
+from asgiref.sync import sync_to_async
 
 '''
 TODO
-1 - создание партфеля
-1.1 - пополнение партфеля (возможность списать со счета)
+1 - создание портфеля
+1.1 - пополнение портфеля (возможность списать со счета)
 2 - добавление акций
 3 - показать что есть в портфеле
 4 - удаление акций
@@ -24,7 +25,14 @@ class Portfolio(models.Model):
     name = models.CharField(max_length=64, verbose_name='Название портфеля')
     price = models.DecimalField(max_digits=8, decimal_places=2, default=0, verbose_name='Стоимость портфеля')
 
-    def create(self, user, name):
+    @sync_to_async
+    def create(self, name, user=None, tgid=None):
+        if not user:
+            user = Telegram.objects.filter(id=tgid)
+            if not user:
+                return False, 'Пользователь не найден'
+            else:
+                user = user[0].user
         if Portfolio.objects.filter(user=user, name=name):
             return False, 'Уже есть портфель с таким именем'
         p = Portfolio(user=user, name=name)
