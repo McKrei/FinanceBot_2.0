@@ -1,11 +1,12 @@
+from typing import Tuple
+
 from asgiref.sync import sync_to_async
-from typing import List, Tuple
+
 from mainapp.models import MoneySum
 from mainapp.models import User, Telegram
 from bot.finance_bot.misc.util import beautiful_numbers as bn
 from mainapp.models import Currency
 from decimal import Decimal
-
 
 
 @sync_to_async
@@ -27,7 +28,12 @@ def answer_for_user_money(telegram_id: int) -> Tuple[str]:
         answer += f'\nВсего: {bn(summa)} {user.basic_currency.symbol}'
     return answer
 
-def account_operation_change_to_many(money: MoneySum, sum_operation: Decimal, income_or_expense: bool) -> None:
+
+def account_operation_change_to_many(
+    money: MoneySum,
+    sum_operation: Decimal,
+    income_or_expense: bool
+) -> None:
     if income_or_expense:
         money.amount = money.amount + sum_operation
     else:
@@ -35,10 +41,12 @@ def account_operation_change_to_many(money: MoneySum, sum_operation: Decimal, in
     money.save()
 
 
-def conversion_change_to_many(user: User,
+def conversion_change_to_many(
+    user: User,
     price_basic_currency: Decimal,
     cur_sell: Currency, sum_sell: Decimal,
-    cur_buy: Currency, sum_buy: Decimal) -> str:
+    cur_buy: Currency, sum_buy: Decimal
+) -> str:
 
     money_sell = MoneySum.objects.filter(user=user, currency=cur_sell)[0]
     money_buy = MoneySum.objects.filter(user=user, currency=cur_buy)
@@ -54,10 +62,12 @@ def conversion_change_to_many(user: User,
             money_buy.conversion = ((s * c) + price_basic_currency) / (s + sum_buy)
 
     else:
-        money_buy = MoneySum(user=user,
-                    currency=cur_buy,
-                    amount=sum_buy,
-                    conversion=price_basic_currency / sum_buy)
+        money_buy = MoneySum(
+            user=user,
+            currency=cur_buy,
+            amount=sum_buy,
+            conversion=price_basic_currency / sum_buy
+        )
         old_course = 0
     money_sell.save()
     money_buy.save()

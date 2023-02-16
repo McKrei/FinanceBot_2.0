@@ -280,9 +280,10 @@ def delete_operation(type_operation: str, operation_id: int):
     if type_operation == 'acc':
         operation = Operation.objects.filter(id=operation_id)
         if operation:
+            sym = '-' if operation[0].category.income_or_expense else '+'
             money = MoneySum.objects.get(
                 user=operation[0].user, currency=operation[0].currency)
-            update_count_money(money, '+', operation[0].amount)
+            update_count_money(money, sym, operation[0].amount)
             operation[0].delete()
 
     else:

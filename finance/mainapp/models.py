@@ -130,6 +130,5 @@ class Operation(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Время операции', blank=True)
     message = models.CharField(max_length=256, verbose_name='Запрос')
 
-
     def __str__(self) -> str:
         return self.message

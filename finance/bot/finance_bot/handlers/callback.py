@@ -44,25 +44,22 @@ async def enter_delete_operation(callback: CallbackQuery):
     Запрос удаление операции
     '''
     type_operation, operation_id = callback.data.split('_')[1:]
-    if type_operation =='conv':
+    if type_operation == 'conv':
         await callback.message.answer('Конверсионные операции возможно удалить только после создания')
-        await callback.answer(f'Ошибка')
-        return
+        return await callback.answer('Ошибка')
+
     answer = await misc.stratum_async(delete_operation, {
         'type_operation': type_operation,
         'operation_id': int(operation_id)})
     if answer:
         await callback.message.answer(answer)
-    await callback.answer(f'Операция удалена')
-
-
+    await callback.answer('Операция удалена')
 
 
 async def enter_update_operation(callback: CallbackQuery):
     '''
     Запрос изменение операции, выбор даты
     '''
-
     type_operation, operation_id, date = callback.data.split('_')[1:]
     result = await misc.stratum_async(foo=update_date_operation,
         parameter={'type_operation': type_operation,
