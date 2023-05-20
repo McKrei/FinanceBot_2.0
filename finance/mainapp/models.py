@@ -38,7 +38,7 @@ class CurrencyReduction(models.Model):
 class Category(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=32, verbose_name='Название категории')
+    name = models.CharField(max_length=64, verbose_name='Название категории')
     income_or_expense = models.BooleanField(default=True, verbose_name='True Доход')
 
     def __str__(self) -> str:
@@ -51,7 +51,7 @@ class Subcategory(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    name = models.CharField(max_length=32, verbose_name='Название категории')
+    name = models.CharField(max_length=64, verbose_name='Название категории')
 
     def __str__(self) -> str:
         return f'{self.user.username} : {self.category.name} : {self.name}'
