@@ -123,13 +123,12 @@ async def get_button_subcategory(callback: CallbackQuery):
 
 
 async def write_key_subcategory(callback: CallbackQuery):
-# f'sksc_{sub_id}_{word}'
     data = callback.data
     answer = await save_key_for_subcategory(data)
     await callback.answer(answer)
 
+
 async def enter_currency_for_oper(callback: CallbackQuery):
-# gc_{summa}_{money.currency.id}
     tg = callback.from_user.id
     data = callback.data.split('_')[1:]
     inline = await misc.stratum_async(
@@ -138,7 +137,6 @@ async def enter_currency_for_oper(callback: CallbackQuery):
     await callback.message.answer(
         f'Выберите категорию', reply_markup=inline)
     await callback.answer()
-
 
 
 def register_callback_handlers(dp: Dispatcher):

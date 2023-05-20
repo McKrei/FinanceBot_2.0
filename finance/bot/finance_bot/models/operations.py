@@ -186,13 +186,13 @@ def account_operation(telegram_id: int, message: str) -> Tuple[bool, str]:
 
         elif result == 2: # Отработка - не нашел категории
             return {
-            'text' : f'Сумма {bn(data[1][0])} {data[0]}\nВыберете категорию:',
-            'reply_markup':kb.inline_choice_categories(telegram_id, data[1], data[2])
+                'text': f'Сумма {bn(data[1][0])} {data[0]}\nВыберете категорию:',
+                'reply_markup': kb.inline_choice_categories(telegram_id, data[1], data[2])
                 }
         else: # # Отработка - не нашел валюту
             return {
-            'text' : f'Сумма {bn(data[0])}\nВыберете валюту:',
-            'reply_markup':kb.inline_choice_currency(data)
+                'text': f'Сумма {bn(data[0])}\nВыберете валюту:',
+                'reply_markup': kb.inline_choice_currency(data)
             }
 
     summa_numbers, cur, cat, subcat = data
