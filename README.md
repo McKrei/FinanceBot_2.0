@@ -1,8 +1,7 @@
 ### dump db to json
-python -Xutf8 manage.py dumpdata > data.json
-python -Xutf8 ./manage.py dumpdata --exclude auth.permission --exclude contenttypes > db.json
+manage.py dumpdatautf8 --output data.json
 ## loaddata
-python manage.py loaddata data.json
+manage.py loaddatautf8 data.json
 
 ### Ошибка при установке библиотек
 pip install --upgrade wheel
