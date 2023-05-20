@@ -60,7 +60,7 @@ class Subcategory(models.Model):
 class SubcategoryReduction(models.Model):
     id = models.AutoField(primary_key=True)
     subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE)
-    reduction = models.CharField(max_length=16, verbose_name='Сокращение категории')
+    reduction = models.CharField(max_length=64, verbose_name='Сокращение категории')
 
     def __str__(self) -> str:
         return f'{self.subcategory.name} : {self.reduction}'
@@ -88,7 +88,7 @@ class LimitNow(models.Model):
 class LimitInMonth(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    month = models.CharField(max_length=16, verbose_name='Месяц в формате MM.YYYY')
+    month = models.CharField(max_length=64, verbose_name='Месяц в формате MM.YYYY')
     amount = models.PositiveBigIntegerField()
 
     def __str__(self) -> str:
@@ -98,7 +98,7 @@ class LimitInMonth(models.Model):
 class LimitStartMonth(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    month = models.CharField(max_length=16, verbose_name='Месяц в формате MM.YYYY')
+    month = models.CharField(max_length=64, verbose_name='Месяц в формате MM.YYYY')
     amount = models.IntegerField()
 
     def __str__(self) -> str:
