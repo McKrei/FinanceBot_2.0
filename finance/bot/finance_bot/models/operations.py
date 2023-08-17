@@ -203,7 +203,6 @@ def account_operation(telegram_id: int, message: str) -> Tuple[bool, str]:
     price_bas_cur = money[0].conversion * summa_numbers
     id_operation = account_operation_save(user, *data, price_bas_cur, message)
     account_operation_change_to_many(money[0], summa_numbers, cat.income_or_expense)
-
     text_sub = '' if cat.name == subcat.name else f' -> {subcat.name.capitalize()}'
     answer = f'Записал {bn(summa_numbers)} {cur.symbol}\n{cat.name.capitalize()}{text_sub}\n'
     bas_cur = user.basic_currency

@@ -69,8 +69,8 @@ class SubcategoryReduction(models.Model):
 class MoneySum(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     currency = models.ForeignKey(Currency, on_delete=models.CASCADE)
-    amount = models.DecimalField(max_digits=8,	decimal_places=2, default=0, verbose_name='Сумма валюты у пользователя')
-    conversion = models.DecimalField(max_digits=8,	decimal_places=2, default=1, verbose_name='Конверсия к стандартной валюте пользователя')
+    amount = models.DecimalField(max_digits=10,	decimal_places=2, default=0, verbose_name='Сумма валюты у пользователя')
+    conversion = models.DecimalField(max_digits=10,	decimal_places=2, default=1, verbose_name='Конверсия к стандартной валюте пользователя')
 
     def __str__(self) -> str:
         return f'{self.user} {self.currency} {self.amount}'
@@ -109,9 +109,9 @@ class Conversion(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     currency_sell = models.ForeignKey(Currency, on_delete=models.CASCADE, related_name='+')
     currency_buy = models.ForeignKey(Currency, on_delete=models.CASCADE, related_name='+')
-    amount_sell = models.DecimalField(max_digits=8,	decimal_places=2, verbose_name='Сколько продал')
-    amount_buy = models.DecimalField(max_digits=8, decimal_places=2, verbose_name='Сколько купил')
-    price_basic_currency = models.DecimalField(max_digits=8, decimal_places=2, verbose_name='Сколько вышло в стандартной валюте')
+    amount_sell = models.DecimalField(max_digits=10,	decimal_places=2, verbose_name='Сколько продал')
+    amount_buy = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Сколько купил')
+    price_basic_currency = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Сколько вышло в стандартной валюте')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Время операции', blank=True)
     message = models.CharField(max_length=256, verbose_name='Запрос')
 
@@ -125,8 +125,8 @@ class Operation(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE, blank=True, null=True)
     currency = models.ForeignKey(Currency, on_delete=models.CASCADE)
-    amount = models.DecimalField(max_digits=8, decimal_places=2, verbose_name='Сумма')
-    price_basic_currency = models.DecimalField(max_digits=8, decimal_places=2, verbose_name='Сколько вышло в стандартной валюте')
+    amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Сумма')
+    price_basic_currency = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Сколько вышло в стандартной валюте')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Время операции', blank=True)
     message = models.CharField(max_length=256, verbose_name='Запрос')
 
