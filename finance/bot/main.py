@@ -11,7 +11,7 @@ from bot.portfolio_bot.handlers import portfolio_register_all_handlers
 
 
 async def __on_start_up(dp: Dispatcher) -> None:
-    portfolio_register_all_handlers(dp)
+    # portfolio_register_all_handlers(dp)
     register_all_handlers(dp)
 
 

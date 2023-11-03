@@ -8,6 +8,8 @@ from mainapp.models import Category
 from mainapp.models import Subcategory
 from mainapp.models import SubcategoryReduction
 from mainapp.models import MoneySum
+from mainapp.models import Investment
+from mainapp.models import HistoryPriceInvestment
 
 from mainapp.models import LimitNow
 from mainapp.models import LimitInMonth
@@ -25,6 +27,8 @@ admin.site.register(Category)
 admin.site.register(Subcategory)
 admin.site.register(SubcategoryReduction)
 admin.site.register(MoneySum)
+admin.site.register(Investment)
+admin.site.register(HistoryPriceInvestment)
 
 # admin.site.register(LimitNow)
 # admin.site.register(LimitInMonth)

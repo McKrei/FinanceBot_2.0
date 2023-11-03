@@ -130,5 +130,29 @@ class Operation(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Время операции', blank=True)
     message = models.CharField(max_length=256, verbose_name='Запрос')
 
+
+class Investment(models.Model):
+    id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    currency = models.ForeignKey(Currency, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания', blank=True)
+    name = models.CharField(max_length=64, verbose_name='Название инвестиции')
+    amount = models.DecimalField(max_digits=10,	decimal_places=2, default=0, verbose_name='Сумма вложения')
+    price_now = models.DecimalField(max_digits=10,	decimal_places=2, default=0, verbose_name='Текщая стоимость')
+    conversion_price_now = models.DecimalField(max_digits=10,	decimal_places=2, default=1, verbose_name='Конверсия к стандартной валюте текущей стоимости')
+    conversion_amount = models.DecimalField(max_digits=10,	decimal_places=2, default=1, verbose_name='Конверсия к стандартной валюте вложений')
+
+
+class HistoryPriceInvestment(models.Model):
+    id = models.AutoField(primary_key=True)
+    investment = models.ForeignKey(Investment, on_delete=models.CASCADE)
+    currency = models.ForeignKey(Currency, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания', blank=True)
+    amount = models.DecimalField(max_digits=10,	decimal_places=2, default=0, verbose_name='Сумма вложения')
+    price_now = models.DecimalField(max_digits=10,	decimal_places=2, default=0, verbose_name='Текщая стоимость')
+    conversion_price_now = models.DecimalField(max_digits=10,	decimal_places=2, default=1, verbose_name='Конверсия к стандартной валюте текущей стоимости')
+    conversion_amount = models.DecimalField(max_digits=10,	decimal_places=2, default=1, verbose_name='Конверсия к стандартной валюте вложений')
+
+
     def __str__(self) -> str:
         return self.message
