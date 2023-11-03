@@ -5,6 +5,7 @@ from typing import Tuple, List
 from asgiref.sync import sync_to_async
 from bot.finance_bot.models.currency import get_dict_currency_reduction
 from bot.finance_bot import misc
+from prettytable import PrettyTable
 
 
 def get_words(text: str) -> list:
@@ -21,13 +22,39 @@ def get_number(text: str) -> list:
     return num
 
 
-def beautiful_numbers(x):
-    num = f'{round(x, 2):,}'.replace(',', ' ')
+def beautiful_numbers(x, round_count=2):
+    num = f'{round(x, round_count):,}'.replace(',', ' ')
     if re.search(r'\d+[.]0{1,2}\b', num):
         num = num[:num.index('.')]
     elif re.search(r'\d+[.]\d0\b', num):
         num = num[:-1]
     return num
+
+
+
+def create_table_money(moneys: list, basyc_symbl) -> str:
+    table_expense = PrettyTable()
+    sum_all = 0
+    table_expense.field_names = [
+        'Сумма',
+        'Валюта',
+        'Курс',
+    ]
+    for money in moneys:
+        sum_all += money.amount * money.conversion
+        table_expense.add_row([
+            beautiful_numbers(money.amount),
+            money.currency.symbol,
+            beautiful_numbers(money.conversion),
+        ])
+    table_expense.add_row(['-'*5]*3)
+    table_expense.add_row([
+        'Итого',
+        basyc_symbl,
+        beautiful_numbers(sum_all),
+    ])
+    return f'<pre>{table_expense}</pre>'
+
 
 
 def get_date_now() -> tuple:

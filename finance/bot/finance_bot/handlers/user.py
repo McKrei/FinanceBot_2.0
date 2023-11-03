@@ -108,13 +108,10 @@ async def update_price_investment(message, user_id):
 async def subtract_investment(message, user_id):
     pass
 
-@auth_user
-async def start_investment(msg: Message):
-    user_id = msg.from_user.id
-    message = msg.text.lower().split()
-
+async def write_invest(msg: Message, user_id, line):
     operation = ['+', '=', '-']
 
+    message = line.split()
     if any([op in message for op in operation]):
         if len(message) != 5 or not message[3].isdigit():
             await msg.answer('Неверный формат, инвестиция + ИИС 100000 р')
@@ -123,8 +120,14 @@ async def start_investment(msg: Message):
         result = await investment.start_investment(*message[1:], user_id)
         if result:
             await msg.answer(result)
+
     elif len(message) == 1:
         result = await investment.get_investment_list(user_id)
+        if result:
+            await msg.answer(result)
+
+    elif message[1] == '!': # Запись
+        result = await investment.get_investment_list(user_id, True)
         if result:
             await msg.answer(result)
 
@@ -132,15 +135,21 @@ async def start_investment(msg: Message):
         result = await investment.delete_investment(message[1], user_id)
         if result:
             await msg.answer(result)
-
     else:
         await msg.answer('Неизвестная команда')
 
+@auth_user
+async def start_investment(msg: Message):
+    user_id = msg.from_user.id
+    for line in msg.text.split('\n'):
+        await write_invest(msg, user_id, line)
 
 
 inves = [
     'инвестиция',
-    'инвестиции'
+    'инвестиции',
+    'инвест',
+    'invest',
 ]
 
 def register_user_handlers(dp: Dispatcher):

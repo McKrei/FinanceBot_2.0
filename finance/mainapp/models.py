@@ -76,6 +76,15 @@ class MoneySum(models.Model):
         return f'{self.user} {self.currency} {self.amount}'
 
 
+class HistoryMoneyAllSum(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    amount = models.DecimalField(max_digits=10,	decimal_places=2, default=0, verbose_name='Сумма Денег в стандартной валюте')
+    created_at = models.DateField(verbose_name='Дата создания')
+
+    def __str__(self) -> str:
+        return f'{self.user} {self.amount} {self.created_at}'
+
+
 class LimitNow(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)

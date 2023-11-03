@@ -57,6 +57,35 @@ def create_table_category(cat_sum: dict, income: list, expense: list) -> str:
     return f'<pre>{table_expense}\n{table_income}</pre>'
 
 
+def create_table_invest(invests: list) -> str:
+    table_expense = PrettyTable()
+    sum_all = sum_now = 0
+    table_expense.field_names = [
+        'name',
+        'value',
+        'price',
+        '%'
+    ]
+    for invest in invests:
+        sum_all += invest.conversion_amount
+        sum_now += invest.conversion_price_now
+        table_expense.add_row([
+            invest.name.replace('_', '\n').upper(),
+            bn(invest.conversion_amount / 1_000_000),
+            bn(invest.conversion_price_now / 1_000_000),
+            f'{bn((invest.conversion_price_now / invest.conversion_amount - 1) * 100, 1)}',
+        ])
+    table_expense.add_row(['-'*5]*4)
+    table_expense.add_row([
+        'Итого',
+        bn(sum_all / 1_000_000),
+        bn(sum_now / 1_000_000),
+        f'{bn((sum_now / sum_all - 1) * 100, 1)}',
+    ])
+    return f'<pre>{table_expense}</pre>'
+
+
+
 def create_table_subcategory(cat_sum: dict, income: list, expense: list) -> str:
     def create_table(cat_sum, cat_list, name) -> PrettyTable:
         table = PrettyTable()

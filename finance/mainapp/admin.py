@@ -8,6 +8,7 @@ from mainapp.models import Category
 from mainapp.models import Subcategory
 from mainapp.models import SubcategoryReduction
 from mainapp.models import MoneySum
+from mainapp.models import HistoryMoneyAllSum
 from mainapp.models import Investment
 from mainapp.models import HistoryPriceInvestment
 
@@ -27,6 +28,7 @@ admin.site.register(Category)
 admin.site.register(Subcategory)
 admin.site.register(SubcategoryReduction)
 admin.site.register(MoneySum)
+admin.site.register(HistoryMoneyAllSum)
 admin.site.register(Investment)
 admin.site.register(HistoryPriceInvestment)
 
