@@ -16,6 +16,7 @@ from bot.finance_bot.models.operations import conversion_operation
 from bot.finance_bot.models.operations import account_operation
 from bot.finance_bot.models.operations import get_detail_operation_info
 from bot.finance_bot.models import investment
+from bot.finance_bot.misc.template import message_invest_help
 
 
 def auth_user(func):
@@ -112,7 +113,10 @@ async def write_invest(msg: Message, user_id, line):
     operation = ['+', '=', '-']
 
     message = line.split()
-    if any([op in message for op in operation]):
+    if 'help' in message:
+        await msg.answer(message_invest_help)
+
+    elif any([op in message for op in operation]):
         if len(message) != 5 or not message[3].isdigit():
             await msg.answer('Неверный формат, инвестиция + ИИС 100000 р')
             return
@@ -131,7 +135,7 @@ async def write_invest(msg: Message, user_id, line):
         if result:
             await msg.answer(result)
 
-    elif len(message) == 3 and message[2] == 'delete':
+    elif len(message) == 3 and message[2] in ['delete', 'del']:
         result = await investment.delete_investment(message[1], user_id)
         if result:
             await msg.answer(result)
@@ -145,7 +149,8 @@ async def start_investment(msg: Message):
         await write_invest(msg, user_id, line)
 
 
-inves = [
+
+invest = [
     'инвестиция',
     'инвестиции',
     'инвест',
@@ -153,7 +158,7 @@ inves = [
 ]
 
 def register_user_handlers(dp: Dispatcher):
-    dp.register_message_handler(start_investment, lambda msg: msg.text.lower().split()[0] in inves) # инвестиция
+    dp.register_message_handler(start_investment, lambda msg: msg.text.lower().split()[0] in invest) # инвестиция
     dp.register_message_handler(get_detail_operation, Text(startswith='/d_')) #do - detail_operation
     dp.register_message_handler(do_conversion, lambda msg:'=' in msg.text)
     dp.register_message_handler(do_operation, regexp=r'\d+')
