@@ -29,6 +29,7 @@ ContentType.objects.all().delete()
 5. Добавляем дамп в корень `/finance/`
 6. Загружаем данные `python manage.py loaddatautf8 data.json`
 7. Запуск приложения `python manage.py runbot`
+8. Если все работает запускаем в скрине `screen`
 
 
 # Создаем задачу на ежедневный дамп
@@ -36,4 +37,3 @@ ContentType.objects.all().delete()
 2. Тестируем скрипт `source /root/projects/FinanceBot_2.0/auto_dump.sh` - Старт пути `/root/projects/` может быть другим замени
 3. В крон `crontab -e` добавляем строку активации скрипта `0 0 * * * source /root/projects/FinanceBot_2.0/auto_dump.sh`
     - 0 0: минута 0 и час 0 (полночь).
-
