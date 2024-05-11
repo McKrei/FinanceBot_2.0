@@ -12,7 +12,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         ...
-        file_path = '/home/www/FinanceBot_2.0/finance/data.json'
+        file_path = 'data.json'
         url = f'https://api.telegram.org/bot{TgKeys.TOKEN}/sendDocument'
         message_text = "Dump BD Finance Bot 2.0 от " + datetime.now().strftime("%d.%m.%Y")
         params = {
