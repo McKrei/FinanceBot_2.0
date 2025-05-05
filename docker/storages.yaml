@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  finance_db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: ${POSTGRES_DB_CONFIG__USER}
+      POSTGRES_PASSWORD: ${POSTGRES_DB_CONFIG__PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB_CONFIG__NAME}
+    container_name: ${DOCKER_CONFIG__STORAGE_CONTAINER}
+    ports:
+      - "${POSTGRES_DB_CONFIG__PORT:-5432}:5432"
+    volumes:
+      - finance_postgres_data:/var/lib/postgresql/data
+    networks:
+      - finance_network
+
+volumes:
+  finance_postgres_data:
+
+networks:
+  finance_network:
+    driver: bridge

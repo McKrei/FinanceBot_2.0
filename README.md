@@ -3,11 +3,11 @@ python manage.py dumpdatautf8 --output data.json
 ## loaddata
 python manage.py loaddatautf8 data.json
 
-### Ошибка при установке библиотек **Пунки 2**
+### Ошибка при установке библиотек
 pip install --upgrade wheel
 
 
-### Ошибка при загрузки данных **Пунки 6**
+### Ошибка при загрузки данных
 ```
 django.db.utils.IntegrityError: Problem installing fixture '/root/projects/FinanceBot_2.0/finance/data.json': Could not load contenttypes.ContentType(pk=19): duplicate key value violates unique constraint "django_content_type_app_label_model_76bd3d3b_uniq"
 DETAIL:  Key (app_label, model)=(portfolio, asset) already exists.

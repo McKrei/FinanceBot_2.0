@@ -3,7 +3,7 @@ from typing import Final
 from dotenv import dotenv_values
 
 
-config = dict(dotenv_values(".env")) # Переводим окружение в словарь
+config = dict(dotenv_values("../.env")) # Переводим окружение в словарь
 
 class TgKeys:
     TOKEN: Final = config.get('TOKEN', 'define TOKEN!')

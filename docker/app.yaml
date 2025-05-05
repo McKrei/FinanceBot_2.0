@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  finance_app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.app
+    container_name: ${DOCKER_CONFIG__APP_CONTAINER}
+    env_file:
+      - ../.env
+    volumes:
+      - "../finance:/app/finance"
+    networks:
+      - finance_network
+
+networks:
+  finance_network:
+    driver: bridge
