@@ -17,6 +17,8 @@ COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . /app/
+EXPOSE 2313
 
 # CMD ["tail", "-f", "/dev/null"]
 CMD ["bash", "-c", "cd finance && python manage.py runbot"]
+# CMD ["bash", "-c", "cd finance && python manage.py runserver 0.0.0.0:2313"]

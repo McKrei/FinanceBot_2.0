@@ -12,6 +12,8 @@ services:
       - "../finance:/app/finance"
     networks:
       - finance_network
+    # ports:
+    #   - "2313:2313"
 
 networks:
   finance_network:
