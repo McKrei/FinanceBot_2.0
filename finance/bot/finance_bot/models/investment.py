@@ -57,7 +57,7 @@ def start_investment(symb, name, amount, cur, user_id):
 
     investment.save()
     add_history_price_investment(investment)
-    
+
     mes = mes if mes else f'Инвестиция "{investment.name}", успешно обновлена'\
             f'\n{investment.amount} {investment.currency.symbol} = {investment.price_now} {investment.currency.symbol}'\
             f'\n{investment.conversion_amount} = {investment.conversion_price_now} '
@@ -88,8 +88,8 @@ def delete_investment(name, user_id):
     if not investment:
         return 'Инвестиция не найдена'
     investment = investment[0]
-    investment.delete()
     add_history_price_investment(investment)
+    investment.delete()
 
     return f'Инвестиция "{name}", успешно удалена'
 
