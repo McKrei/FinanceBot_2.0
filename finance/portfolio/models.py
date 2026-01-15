@@ -1,10 +1,5 @@
-from env import TinkoffKey
 from django.db import models
 from mainapp.models import User, Telegram
-from tinkoff.invest import CandleInterval, Client
-from tinkoff.invest.services import InstrumentsService, MarketDataService
-from tinkoff.invest.utils import now
-from datetime import timedelta
 from asgiref.sync import sync_to_async
 
 '''
@@ -50,25 +45,26 @@ class Asset(models.Model):
     currency = models.CharField(max_length=16, verbose_name='валюта')
     first_candle_date = models.DateTimeField(verbose_name='дата начала истории продаж')
 
-    def get_data(self):
-        with Client(TinkoffKey.TOKEN) as cl:
-            instruments: InstrumentsService = cl.instruments
-            market_data: MarketDataService = cl.market_data
-            l = []
-            for method in ['shares', 'bonds', 'etfs', 'currencies']: #, 'futures']:
-                for item in getattr(instruments, method)().instruments:
-                    asset = Asset.objects.filter(ticker=item.ticker, type=method)
-                    if asset:
-                        asset = asset[0]
-                        asset.figi = item.figi
-                    else:
-                        asset = Asset(name=item.name,
-                        ticker=item.ticker,
-                        figi=item.figi,
-                        type=method,
-                        currency=item.currency,
-                        first_candle_date=item.first_1day_candle_date)
-                    asset.save()
+    # Tinkoff Invest API integration is currently unused in the project.
+    # def get_data(self):
+    #     with Client(TinkoffKey.TOKEN) as cl:
+    #         instruments: InstrumentsService = cl.instruments
+    #         market_data: MarketDataService = cl.market_data
+    #         l = []
+    #         for method in ['shares', 'bonds', 'etfs', 'currencies']: #, 'futures']:
+    #             for item in getattr(instruments, method)().instruments:
+    #                 asset = Asset.objects.filter(ticker=item.ticker, type=method)
+    #                 if asset:
+    #                     asset = asset[0]
+    #                     asset.figi = item.figi
+    #                 else:
+    #                     asset = Asset(name=item.name,
+    #                     ticker=item.ticker,
+    #                     figi=item.figi,
+    #                     type=method,
+    #                     currency=item.currency,
+    #                     first_candle_date=item.first_1day_candle_date)
+    #                 asset.save()
 
 
 class UserAsset(models.Model):
@@ -89,38 +85,40 @@ class HistoryPriceAsset(models.Model):
     high = models.DecimalField(max_digits=12, decimal_places=4, verbose_name='максимальная цена за день')
     volume = models.IntegerField(verbose_name='объем торгов')
 
-    def _get_candles(self, asset, start, end):
-        to_float = lambda x: float(f'{x.units}.{x.nano}')
-        with Client(TinkoffKey.TOKEN) as client:
-            for candle in client.get_all_candles(
-                        figi=asset.figi,
-                        from_=start,
-                        to=end,
-                        interval=CandleInterval.CANDLE_INTERVAL_DAY):
-                hpa = HistoryPriceAsset.objects.filter(asset=asset, date=candle.time)
-                if hpa:
-                    continue
-                hpa = HistoryPriceAsset(
-                    asset=asset,
-                    date=candle.time,
-                    closed=to_float(candle.close),
-                    open_price=to_float(candle.open),
-                    low=to_float(candle.low),
-                    high=to_float(candle.high),
-                    volume=candle.volume
-                    )
-                hpa.save()
+    # Tinkoff Invest API integration is currently unused in the project.
+    # def _get_candles(self, asset, start, end):
+    #     to_float = lambda x: float(f'{x.units}.{x.nano}')
+    #     with Client(TinkoffKey.TOKEN) as client:
+    #         for candle in client.get_all_candles(
+    #                     figi=asset.figi,
+    #                     from_=start,
+    #                     to=end,
+    #                     interval=CandleInterval.CANDLE_INTERVAL_DAY):
+    #             hpa = HistoryPriceAsset.objects.filter(asset=asset, date=candle.time)
+    #             if hpa:
+    #                 continue
+    #             hpa = HistoryPriceAsset(
+    #                 asset=asset,
+    #                 date=candle.time,
+    #                 closed=to_float(candle.close),
+    #                 open_price=to_float(candle.open),
+    #                 low=to_float(candle.low),
+    #                 high=to_float(candle.high),
+    #                 volume=candle.volume
+    #                 )
+    #             hpa.save()
 
 
-    def validate_history(self, asset: Asset, date: tuple):
-        hpa = HistoryPriceAsset.objects.filter(asset=asset).order_by('date')
-        data_end = now()
-        date_start = data_end.replace(
-            year=date[0], month=date[1], day=date[2]) - timedelta(days=1)
-        if hpa:
-            hpa_date_start = hpa[0].date.date()
-            if hpa_date_start > date_start:
-                data_end = hpa_date_start - timedelta(days=1)
-            else: return
-
-        self._get_candles(asset, date_start, data_end)
+    # Tinkoff Invest API integration is currently unused in the project.
+    # def validate_history(self, asset: Asset, date: tuple):
+    #     hpa = HistoryPriceAsset.objects.filter(asset=asset).order_by('date')
+    #     data_end = now()
+    #     date_start = data_end.replace(
+    #         year=date[0], month=date[1], day=date[2]) - timedelta(days=1)
+    #     if hpa:
+    #         hpa_date_start = hpa[0].date.date()
+    #         if hpa_date_start > date_start:
+    #             data_end = hpa_date_start - timedelta(days=1)
+    #         else: return
+    #
+    #     self._get_candles(asset, date_start, data_end)
