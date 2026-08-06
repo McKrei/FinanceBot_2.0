@@ -6,6 +6,7 @@ services:
       context: ..
       dockerfile: docker/Dockerfile.app
     container_name: ${DOCKER_CONFIG__APP_CONTAINER}
+    restart: unless-stopped
     env_file:
       - ../.env
     volumes:
@@ -19,11 +20,12 @@ services:
 
   finance_db:
     image: postgres:16
+    container_name: ${DOCKER_CONFIG__STORAGE_CONTAINER}
+    restart: unless-stopped
     environment:
       POSTGRES_USER: ${POSTGRES_DB_CONFIG__USER}
       POSTGRES_PASSWORD: ${POSTGRES_DB_CONFIG__PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB_CONFIG__NAME}
-    container_name: ${DOCKER_CONFIG__STORAGE_CONTAINER}
     ports:
       - "${POSTGRES_DB_CONFIG__PORT:-5432}:5432"
     volumes:

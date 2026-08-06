@@ -3,6 +3,8 @@ version: '3.9'
 services:
   finance_db:
     image: postgres:16
+    container_name: ${DOCKER_CONFIG__STORAGE_CONTAINER}
+    restart: unless-stopped
     environment:
       POSTGRES_USER: ${POSTGRES_DB_CONFIG__USER}
       POSTGRES_PASSWORD: ${POSTGRES_DB_CONFIG__PASSWORD}
